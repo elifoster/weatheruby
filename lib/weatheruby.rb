@@ -12,11 +12,14 @@ class Weatheruby
   # @param use_pws [Boolean] Whether to use the Personal Weather Station
   #   feature.
   # @param use_bestfct [Boolean] Whether to use BestForecast.
-  def initialize(api_key, language = 'EN', use_pws = true, use_bestfct = true)
+  # @param verbose_errors [Boolean] Whether to get verbose errors or not.
+  def initialize(api_key, language = 'EN', use_pws = true, use_bestfct = true,
+                 verbose_errors = false)
     @api_key = api_key
     @language_key = language.upcase
     @use_pws = use_pws ? 1 : 0
     @use_bestfct = use_bestfct ? 1 : 0
+    @verbose_errors = verbose_errors
 
     @client = HTTPClient.new
   end
@@ -38,6 +41,7 @@ class Weatheruby
 
     if autoparse
       return JSON.parse(res.body)
+      # puts JSON.parse(res.body)
     else
       return res
     end
