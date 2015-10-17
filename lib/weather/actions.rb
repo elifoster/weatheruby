@@ -76,5 +76,136 @@ module Weather
 
       ret
     end
+
+    # Gets the record low for the location.
+    # @param location [String] The place to get the record low for.
+    # @return [Hash] A hash containing a few integers of data.
+    def record_low(location)
+      response = get('almanac', location)
+
+      ret = {
+        :average_low_f => response['almanac']['temp_low']['normal']['F'].to_i,
+        :average_low_c => response['almanac']['temp_low']['normal']['C'].to_i,
+        :record_year => response['almanac']['temp_low']['recordyear'].to_i,
+        :record_low_f => response['almanac']['temp_low']['record']['F'].to_i,
+        :record_low_c => response['almanac']['temp_low']['record']['C'].to_i
+      }
+
+      ret
+    end
+
+    # Gets the record high for the location.
+    # @param location [String] The place to get the record high for.
+    # @return [Hash] A hash containing a few integers of data.
+    def record_high(location)
+      response = get('almanac', location)
+
+      ret = {
+        :average_high_f => response['almanac']['temp_high']['normal']['F'].to_i,
+        :average_high_c => response['almanac']['temp_high']['normal']['C'].to_i,
+        :record_year => response['almanac']['temp_high']['recordyear'].to_i,
+        :record_high_f => response['almanac']['temp_high']['record']['F'].to_i,
+        :record_high_c => response['almanac']['temp_high']['record']['C'].to_i
+      }
+
+      ret
+    end
+
+    # Gets data for currently-happening hurricanes around the world.
+    # @return [Hash] A hash containing hashes of data. Each sub-hash is named
+    #   as the "nice" name for the hurricane (example: Hurricane Daniel).
+    def hurricane_data
+      response = get('currenthurricane', 'view')
+
+      ret = {}
+      response['currenthurricane'].each do |h|
+        ret[h['stormInfo']['stormName_Nice']] = {
+          :name => h['stormInfo']['stormName'],
+          :number => h['stormInfo']['stormNumber'],
+          :category => h['Current']['Category'],
+          :time => h['Current']['Time']['pretty'],
+          :wind_speed_mph => h['Current']['WindSpeed']['Mph'],
+          :wind_speed_kts => h['Current']['WindSpeed']['Kts'],
+          :wind_speed_kph => h['Current']['WindSpeed']['Kph'],
+          :gust_speed_mph => h['Current']['WindGust']['Mph'],
+          :gust_speed_kts => h['Current']['WindGust']['Kts'],
+          :gust_speed_kph => h['Current']['WindGust']['Kph'],
+        }
+      end
+
+      ret
+    end
+
+    # Gets the basic forecast information for the location.
+    # @param location [String] The place to get the forecast for.
+    # @return [Hash] A hash containing hashes of information. Sub-hashes are
+    #   named as their "period", or the day in relation to the current day.
+    #   For example: 0 is today, 1 is tomorrow, etc. It does not organize itself
+    #   by weekday. That is what the weekday_name key is for.
+    def simple_forecast(location)
+      response = get('forecast', location)
+
+      ret = {}
+      response['forecast']['txt_forecast']['forecastday'].each do |f|
+        ret[f['period']] = {
+          :weekday_name => f['title'],
+          :text => f['fcttext'],
+          :text_metric => f['fcttext_metric']
+        }
+      end
+
+      ret
+    end
+
+    # Gets more complicated forecast information for the location. Only gets
+    #   the forecast for the next three days.
+    # @param location [String] The place to get the forecast for.
+    # @return [Hash] A hash containing hashes of information. Sub-hashes are
+    #   named as their "period", or the day in relation to the current day.
+    #   For example: 0 is today, 1 is tomorrow, etc. It does not organize itself
+    #   by weekday. Unlike simple_forecast, you do not get very many strings in
+    #   this method.
+    def complex_forecast(location)
+      response = get('forecast', location)
+
+      ret = {}
+      response['forecast']['simpleforecast']['forecastday'].each do |f|
+        ret[f['period'] - 1] = {
+          :high_f => f['high']['fahrenheit'].to_i,
+          :high_c => f['high']['celsius'].to_i,
+          :low_f => f['low']['fahrenheit'].to_i,
+          :low_c => f['low']['celsius'].to_i,
+          :conditions => f['conditions'].to_i,
+          :snow => {
+            :snow_total_in => f['snow_allday']['in'],
+            :snow_total_cm => f['snow_allday']['cm'],
+            :snow_night_in => f['snow_night']['in'],
+            :snow_night_cm => f['snow_night']['cm'],
+            :snow_day_in => f['snow_day']['in'],
+            :snow_day_cm => f['snow_day']['cm']
+          },
+          :quantative_precipitation => {
+            :qpf_total_in => f['qpf_allday']['in'],
+            :qpf_total_cm => f['qpf_allday']['cm'],
+            :qpf_night_in => f['qpf_night']['in'],
+            :qpf_night_cm => f['qpf_night']['cm'],
+            :qpf_day_in => f['qpf_day']['in'],
+            :qpf_day_cm => f['qpf_day']['cm']
+          },
+          :wind => {
+            :average_mph => f['avewind']['mph'],
+            :average_kph => f['avewind']['kph'],
+            :average_dir => f['avewind']['dir'],
+            :average_temp => f['avewind']['degrees'],
+            :max_mph => f['maxwind']['mph'],
+            :max_kph => f['maxwind']['kph'],
+            :max_dir => f['maxwind']['dir'],
+            :max_temp => f['maxwind']['degrees']
+          }
+        }
+      end
+
+      ret
+    end
   end
 end
