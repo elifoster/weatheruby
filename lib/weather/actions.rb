@@ -162,12 +162,16 @@ module Weather
       return parse_complex_forecast(response)
     end
 
+    # Exactly the same as #simple_forecast, except that it gets the data for
+    #   20 days.
     def simple_forecast_20day(location)
       response = get('forecast10day', location)
 
       return parse_simple_forecast(response)
     end
 
+    # Exactly the same as #complex_forecast, except that it gets the data for
+    #   10 days.
     def complex_forecast_10day(location)
       response = get('forecast10day', location)
 
@@ -175,6 +179,7 @@ module Weather
     end
 
     private
+    # Parses the simple forecast information.
     def parse_simple_forecast(response)
       ret = {}
 
@@ -189,6 +194,7 @@ module Weather
       ret
     end
 
+    # Parses the complex forecast information.
     def parse_complex_forecast(response)
       ret = {}
 
