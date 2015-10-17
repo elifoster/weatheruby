@@ -2,7 +2,7 @@ module Weather
   module Actions
     # Gets alert information for a location.
     # @param location [String] The place to get the alert data for.
-    # @return [Hash/Nil] Nil if there are no alerts, or a hash of arrays
+    # @return [Hash/Nil] Nil if there are no alerts, or a hash of hashes
     #   containing relevant data if not. Each array in the hash contains
     #   information for a different alert.
     def alerts(location)
@@ -41,7 +41,7 @@ module Weather
       ret
     end
 
-    # Gets weahter conditions for the location.
+    # Gets weather conditions for the location.
     # @param location [String] The place to get the weather report for.
     # @return [Hash] A hash containing strings of relevant weather information.
     def conditions(location)
@@ -76,6 +76,5 @@ module Weather
 
       ret
     end
-
   end
 end

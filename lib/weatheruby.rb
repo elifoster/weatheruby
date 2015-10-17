@@ -1,6 +1,6 @@
 require 'httpclient'
 require 'json'
-require_relative 'actions'
+require_relative 'weather/actions'
 
 class Weatheruby
   include Weather::Actions

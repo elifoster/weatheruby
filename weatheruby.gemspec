@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   }
   s.files = [
     'CHANGELOG.md',
-    'lib/weatheruby.rb'
+    'lib/weatheruby.rb',
+    'lib/weather/actions.rb'
   ]
   s.add_runtime_dependency('httpclient')
+end
