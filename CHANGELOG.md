@@ -1,6 +1,7 @@
 # Changelog
 ## Version 0
 ### Version 0.2.0
+* New complex_forecast_10day and simple_forecast_20day.
 * New complex_forecast and simple_forecast methods. It's funny, complex_forecast uses the simpleforecast stuff from the API.
 * New hurricane_data method.
 * New record_low and record_high methods.

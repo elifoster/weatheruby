@@ -145,16 +145,7 @@ module Weather
     def simple_forecast(location)
       response = get('forecast', location)
 
-      ret = {}
-      response['forecast']['txt_forecast']['forecastday'].each do |f|
-        ret[f['period']] = {
-          :weekday_name => f['title'],
-          :text => f['fcttext'],
-          :text_metric => f['fcttext_metric']
-        }
-      end
-
-      ret
+      return parse_simple_forecast(response)
     end
 
     # Gets more complicated forecast information for the location. Only gets
@@ -168,7 +159,39 @@ module Weather
     def complex_forecast(location)
       response = get('forecast', location)
 
+      return parse_complex_forecast(response)
+    end
+
+    def simple_forecast_20day(location)
+      response = get('forecast10day', location)
+
+      return parse_simple_forecast(response)
+    end
+
+    def complex_forecast_10day(location)
+      response = get('forecast10day', location)
+
+      return parse_complex_forecast(response)
+    end
+
+    private
+    def parse_simple_forecast(response)
       ret = {}
+
+      response['forecast']['txt_forecast']['forecastday'].each do |f|
+        ret[f['period']] = {
+          :weekday_name => f['title'],
+          :text => f['fcttext'],
+          :text_metric => f['fcttext_metric']
+        }
+      end
+
+      ret
+    end
+
+    def parse_complex_forecast(response)
+      ret = {}
+
       response['forecast']['simpleforecast']['forecastday'].each do |f|
         ret[f['period'] - 1] = {
           :high_f => f['high']['fahrenheit'].to_i,
