@@ -181,7 +181,8 @@ module Weather
       end
     end
 
-    # Gets the basic forecast information for the location.
+    # Gets the basic forecast information for the location. Only gets data
+    #   for the next 3 days.
     # @param location [String] The place to get the forecast for.
     # @return [Hash] A hash containing hashes of information. Sub-hashes are
     #   named as their "period", or the day in relation to the current day.
@@ -208,8 +209,8 @@ module Weather
     end
 
     # Exactly the same as #simple_forecast, except that it gets the data for
-    #   20 days.
-    def simple_forecast_20day(location)
+    #   10 days.
+    def simple_forecast_10day(location)
       response = get('forecast10day', location)
 
       return parse_simple_forecast(response)
