@@ -12,11 +12,11 @@ module Weather
         count = 0
         response['alerts'].each do |a|
           ret[count] = {
-            :type => a['type'],
-            :description => a['description'],
-            :date => a['date'],
-            :expires => a['expires'],
-            :message => a['message'],
+            type: a['type'],
+            description: a['description'],
+            date: a['date'],
+            expires: a['expires'],
+            message: a['message']
           }
           count += 1
         end
@@ -64,26 +64,26 @@ module Weather
         display_location = current_observation['display_location']
 
         ret = {
-          :full_name => display_location['full'],
-          :city_name => display_location['city'],
-          :state_abbreviation => display_location['state'],
-          :state_name => display_location['state_name'],
-          :country => display_location['country'],
-          :zip_code => display_location['zip'].to_i,
-          :updated => current_observation['observation_time'],
-          :weather => current_observation['weather'],
-          :formatted_temperature => current_observation['temperature_string'],
-          :temperature_f => current_observation['temp_f'],
-          :temperature_c => current_observation['temp_c'],
-          :humidity => current_observation['relative_humidity'],
-          :formatted_wind => current_observation['wind_string'],
-          :wind_direction => current_observation['wind_dir'],
-          :wind_degrees => current_observation['wind_degrees'],
-          :wind_speed => current_observation['wind_mph'],
-          :wind_gust_speed => current_observation['wind_gust_mph'].to_i,
-          :formatted_feelslike => current_observation['feelslike_string'],
-          :feelslike_f => current_observation['feelslike_f'].to_i,
-          :feelslike_c => current_observation['feelslike_c'].to_i
+          full_name: display_location['full'],
+          city_name: display_location['city'],
+          state_abbreviation: display_location['state'],
+          state_name: display_location['state_name'],
+          country: display_location['country'],
+          zip_code: display_location['zip'].to_i,
+          updated: current_observation['observation_time'],
+          weather: current_observation['weather'],
+          formatted_temperature: current_observation['temperature_string'],
+          temperature_f: current_observation['temp_f'],
+          temperature_c: current_observation['temp_c'],
+          humidity: current_observation['relative_humidity'],
+          formatted_wind: current_observation['wind_string'],
+          wind_direction: current_observation['wind_dir'],
+          wind_degrees: current_observation['wind_degrees'],
+          wind_speed: current_observation['wind_mph'],
+          wind_gust_speed: current_observation['wind_gust_mph'].to_i,
+          formatted_feelslike: current_observation['feelslike_string'],
+          feelslike_f: current_observation['feelslike_f'].to_i,
+          feelslike_c: current_observation['feelslike_c'].to_i
         }
 
         ret[:humidity] = ret[:humidity].sub('%', '').to_i
@@ -106,11 +106,11 @@ module Weather
 
       if response['response']['error'].nil?
         ret = {
-          :average_low_f => response['almanac']['temp_low']['normal']['F'].to_i,
-          :average_low_c => response['almanac']['temp_low']['normal']['C'].to_i,
-          :record_year => response['almanac']['temp_low']['recordyear'].to_i,
-          :record_low_f => response['almanac']['temp_low']['record']['F'].to_i,
-          :record_low_c => response['almanac']['temp_low']['record']['C'].to_i
+          average_low_f: response['almanac']['temp_low']['normal']['F'].to_i,
+          average_low_c: response['almanac']['temp_low']['normal']['C'].to_i,
+          record_year: response['almanac']['temp_low']['recordyear'].to_i,
+          record_low_f: response['almanac']['temp_low']['record']['F'].to_i,
+          record_low_c: response['almanac']['temp_low']['record']['C'].to_i
         }
 
         ret
@@ -131,11 +131,11 @@ module Weather
 
       if response['response']['error'].nil?
         ret = {
-          :average_high_f => response['almanac']['temp_high']['normal']['F'].to_i,
-          :average_high_c => response['almanac']['temp_high']['normal']['C'].to_i,
-          :record_year => response['almanac']['temp_high']['recordyear'].to_i,
-          :record_high_f => response['almanac']['temp_high']['record']['F'].to_i,
-          :record_high_c => response['almanac']['temp_high']['record']['C'].to_i
+          average_high_f: response['almanac']['temp_high']['normal']['F'].to_i,
+          average_high_c: response['almanac']['temp_high']['normal']['C'].to_i,
+          record_year: response['almanac']['temp_high']['recordyear'].to_i,
+          record_high_f: response['almanac']['temp_high']['record']['F'].to_i,
+          record_high_c: response['almanac']['temp_high']['record']['C'].to_i
         }
 
         ret
@@ -158,16 +158,16 @@ module Weather
         ret = {}
         response['currenthurricane'].each do |h|
           ret[h['stormInfo']['stormName_Nice']] = {
-            :name => h['stormInfo']['stormName'],
-            :number => h['stormInfo']['stormNumber'],
-            :category => h['Current']['Category'],
-            :time => h['Current']['Time']['pretty'],
-            :wind_speed_mph => h['Current']['WindSpeed']['Mph'],
-            :wind_speed_kts => h['Current']['WindSpeed']['Kts'],
-            :wind_speed_kph => h['Current']['WindSpeed']['Kph'],
-            :gust_speed_mph => h['Current']['WindGust']['Mph'],
-            :gust_speed_kts => h['Current']['WindGust']['Kts'],
-            :gust_speed_kph => h['Current']['WindGust']['Kph'],
+            name: h['stormInfo']['stormName'],
+            number: h['stormInfo']['stormNumber'],
+            category: h['Current']['Category'],
+            time: h['Current']['Time']['pretty'],
+            wind_speed_mph: h['Current']['WindSpeed']['Mph'],
+            wind_speed_kts: h['Current']['WindSpeed']['Kts'],
+            wind_speed_kph: h['Current']['WindSpeed']['Kph'],
+            gust_speed_mph: h['Current']['WindGust']['Mph'],
+            gust_speed_kts: h['Current']['WindGust']['Kts'],
+            gust_speed_kph: h['Current']['WindGust']['Kph']
           }
         end
 
@@ -191,7 +191,7 @@ module Weather
     def simple_forecast(location)
       response = get('forecast', location)
 
-      return parse_simple_forecast(response)
+      parse_simple_forecast(response)
     end
 
     # Gets more complicated forecast information for the location. Only gets
@@ -205,7 +205,7 @@ module Weather
     def complex_forecast(location)
       response = get('forecast', location)
 
-      return parse_complex_forecast(response)
+      parse_complex_forecast(response)
     end
 
     # Exactly the same as #simple_forecast, except that it gets the data for
@@ -213,7 +213,7 @@ module Weather
     def simple_forecast_10day(location)
       response = get('forecast10day', location)
 
-      return parse_simple_forecast(response)
+      parse_simple_forecast(response)
     end
 
     # Exactly the same as #complex_forecast, except that it gets the data for
@@ -221,10 +221,11 @@ module Weather
     def complex_forecast_10day(location)
       response = get('forecast10day', location)
 
-      return parse_complex_forecast(response)
+      parse_complex_forecast(response)
     end
 
     private
+
     # Parses the simple forecast information.
     def parse_simple_forecast(response)
       if response['response']['error'].nil?
@@ -232,9 +233,9 @@ module Weather
 
         response['forecast']['txt_forecast']['forecastday'].each do |f|
           ret[f['period']] = {
-            :weekday_name => f['title'],
-            :text => f['fcttext'],
-            :text_metric => f['fcttext_metric']
+            weekday_name: f['title'],
+            text: f['fcttext'],
+            text_metric: f['fcttext_metric']
           }
         end
 
@@ -255,36 +256,36 @@ module Weather
 
         response['forecast']['simpleforecast']['forecastday'].each do |f|
           ret[f['period'] - 1] = {
-            :high_f => f['high']['fahrenheit'].to_i,
-            :high_c => f['high']['celsius'].to_i,
-            :low_f => f['low']['fahrenheit'].to_i,
-            :low_c => f['low']['celsius'].to_i,
-            :conditions => f['conditions'].to_i,
-            :snow => {
-              :snow_total_in => f['snow_allday']['in'],
-              :snow_total_cm => f['snow_allday']['cm'],
-              :snow_night_in => f['snow_night']['in'],
-              :snow_night_cm => f['snow_night']['cm'],
-              :snow_day_in => f['snow_day']['in'],
-              :snow_day_cm => f['snow_day']['cm']
+            high_f: f['high']['fahrenheit'].to_i,
+            high_c: f['high']['celsius'].to_i,
+            low_f: f['low']['fahrenheit'].to_i,
+            low_c: f['low']['celsius'].to_i,
+            conditions: f['conditions'].to_i,
+            snow: {
+              snow_total_in: f['snow_allday']['in'],
+              snow_total_cm: f['snow_allday']['cm'],
+              snow_night_in: f['snow_night']['in'],
+              snow_night_cm: f['snow_night']['cm'],
+              snow_day_in: f['snow_day']['in'],
+              snow_day_cm: f['snow_day']['cm']
             },
-            :quantative_precipitation => {
-              :qpf_total_in => f['qpf_allday']['in'],
-              :qpf_total_cm => f['qpf_allday']['cm'],
-              :qpf_night_in => f['qpf_night']['in'],
-              :qpf_night_cm => f['qpf_night']['cm'],
-              :qpf_day_in => f['qpf_day']['in'],
-              :qpf_day_cm => f['qpf_day']['cm']
+            quantative_precipitation: {
+              qpf_total_in: f['qpf_allday']['in'],
+              qpf_total_cm: f['qpf_allday']['cm'],
+              qpf_night_in: f['qpf_night']['in'],
+              qpf_night_cm: f['qpf_night']['cm'],
+              qpf_day_in: f['qpf_day']['in'],
+              qpf_day_cm: f['qpf_day']['cm']
             },
-            :wind => {
-              :average_mph => f['avewind']['mph'],
-              :average_kph => f['avewind']['kph'],
-              :average_dir => f['avewind']['dir'],
-              :average_temp => f['avewind']['degrees'],
-              :max_mph => f['maxwind']['mph'],
-              :max_kph => f['maxwind']['kph'],
-              :max_dir => f['maxwind']['dir'],
-              :max_temp => f['maxwind']['degrees']
+            wind: {
+              average_mph: f['avewind']['mph'],
+              average_kph: f['avewind']['kph'],
+              average_dir: f['avewind']['dir'],
+              average_temp: f['avewind']['degrees'],
+              max_mph: f['maxwind']['mph'],
+              max_kph: f['maxwind']['kph'],
+              max_dir: f['maxwind']['dir'],
+              max_temp: f['maxwind']['degrees']
             }
           }
         end

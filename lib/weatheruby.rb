@@ -1,6 +1,7 @@
 require 'httpclient'
 require 'json'
 require_relative 'weather/actions'
+require_relative 'weather/exceptions'
 
 class Weatheruby
   include Weather::Actions
@@ -38,10 +39,13 @@ class Weatheruby
     url = URI.encode(url)
     uri = URI.parse(url)
     res = @client.get(uri)
+    json = JSON.parse(res.body)
+    unless json['response']['results'].nil?
+      fail Weather::Exceptions::TooManyResultsError
+    end
 
     if autoparse
-      return JSON.parse(res.body)
-      # puts JSON.parse(res.body)
+      return json
     else
       return res
     end

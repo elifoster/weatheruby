@@ -1,5 +1,10 @@
 # Changelog
 ## Version 0
+### Version 0.4.0
+* New weatheruby executable.
+* Fail when there are many results and it cannot get actual data.
+* Many style fixes.
+
 ### Version 0.3.1
 * Fix forecast names to 10day, and made it apparent in documentation that the non-10 day methods are only for the next 3 days.
 

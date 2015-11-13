@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.authors = ['Eli Foster']
   s.name = 'weatheruby'
   s.summary = 'A Ruby gem for accessing the Weather Underground API.'
-  s.version = '0.3.1'
+  s.version = '0.4.0'
   s.license = 'CC-BY-NC-ND-4.0'
   s.description = 'Accessing the Weather Underground API through HTTPClient.'
   s.email = 'elifosterwy@gmail.com'
@@ -15,5 +15,8 @@ Gem::Specification.new do |s|
     'lib/weatheruby.rb',
     'lib/weather/actions.rb'
   ]
+  s.executables = 'weatheruby'
   s.add_runtime_dependency('httpclient')
+  s.add_runtime_dependency('rainbow')
+  s.add_runtime_dependency('string-utility')
 end

@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+path = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(path)
+
+require 'rainbow'
+require 'string-utility'
+require_relative '../lib/weatheruby'
+
+fail ArgumentError if ARGV.empty?
+
+@args = {
+  help: false,
+  verbose: false,
+  token: nil,
+  location: nil,
+  language: 'EN'
+}
+
+usage = 'Usage: weatheruby [t] token [-l] [-j] languagecode [-v] [-h]'
+help = "-h, --help       Show helpful information about Weatheruby usage\n" \
+       "-v, --verbose    Output verbose errors\n" \
+       "-t, --token      The token to log in as\n" \
+       "-l, --location   The location to get weather data for\n" \
+       '-j, --language   The language code to use'
+
+ARGV.each do |arg|
+  case arg
+  when '-t', '--token' then @args[:token] = ARGV.at(ARGV.index(arg) + 1)
+  when '-h', '--help' then @args[:help] = true
+  when '-l', '--location' then @args[:location] = ARGV.at(ARGV.index(arg) + 1)
+  when '-v', '--verbose' then @args[:verbose] = true
+  when '-j', '--language' then @args[:language] = ARGV.at(ARGV.index(arg) + 1)
+  end
+end
+
+if @args[:help]
+  puts usage
+  puts help
+  exit
+end
+
+if @args[:token].nil? || @args[:location].nil?
+  puts usage
+  exit
+end
+
+client = Weatheruby.new(@args[:token],
+                        @args[:language],
+                        true,
+                        true,
+                        @args[:verbose])
+
+conditions = client.conditions(@args[:location])
+moon = client.moon_phase(@args[:location])
+alerts = client.alerts(@args[:location])
+forecast = client.simple_forecast_10day(@args[:location])
+
+location = Rainbow(@args[:location]).color(StringUtility.random_color_six)
+updated = Rainbow(conditions[:updated]).magenta
+weather = Rainbow(conditions[:weather]).color(StringUtility.random_color_six)
+temp = Rainbow(conditions[:formatted_temperature].to_s).cyan
+humidity = Rainbow(conditions[:humidity].to_s).cyan
+wind = Rainbow(conditions[:formatted_wind]).green
+feels = Rainbow(conditions[:formatted_feelslike]).yellow
+age = Rainbow(moon[:age].to_s).white
+illum = Rainbow("#{moon[:illumination]} %").white
+
+puts "Getting weather data for #{location}"
+puts updated
+puts weather
+puts temp
+puts feels
+puts "Humidity: #{humidity} %"
+puts wind
+alerts.each do |a|
+  alert = Rainbow(a[:description]).red.bright + ' until ' +
+          Rainbow(a[:expires]).red.bright
+  puts alert
+end
+puts "Moon phase: #{age}"
+puts "Moon illumination: #{illum}"
+
+puts '* BEGIN 10 DAY FORECAST *'
+20.times do |i|
+  d = Rainbow(forecast[i][:weekday_name]).color(StringUtility.random_color_six)
+  puts "#{d}: #{forecast[i][:text]}"
+end
