@@ -1,5 +1,8 @@
 # Changelog
 ## Version 0
+### Version 0.4.1
+* Fix NameError
+
 ### Version 0.4.0
 * New weatheruby executable.
 * Fail when there are many results and it cannot get actual data.
