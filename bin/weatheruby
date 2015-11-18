@@ -8,8 +8,6 @@ require 'rainbow'
 require 'string-utility'
 require_relative '../lib/weatheruby'
 
-fail ArgumentError if ARGV.empty?
-
 @args = {
   help: false,
   verbose: false,
@@ -33,6 +31,11 @@ ARGV.each do |arg|
   when '-v', '--verbose' then @args[:verbose] = true
   when '-j', '--language' then @args[:language] = ARGV.at(ARGV.index(arg) + 1)
   end
+end
+
+if ARGV.empty?
+  puts usage
+  exit
 end
 
 if @args[:help]
@@ -70,8 +73,8 @@ illum = Rainbow("#{moon[:illumination]} %").white
 puts "Getting weather data for #{location}"
 puts updated
 puts weather
-puts temp
-puts feels
+puts "Curent weather: #{temp}"
+puts "Feels like: #{feels}"
 puts "Humidity: #{humidity} %"
 puts wind
 alerts.each do |a|

@@ -1,5 +1,8 @@
 # Changelog
 ## Version 0
+### Version 0.4.2
+* No longer fails with an ArgumentError if the CLI is passed no arguments. Instead it outputs the usage information, so that it is actually a useful thing.
+
 ### Version 0.4.1
 * Fix NameError
 
