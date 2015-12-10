@@ -1,10 +1,12 @@
 require 'httpclient'
 require 'json'
 require_relative 'weather/actions'
+require_relative 'weather/planner'
 require_relative 'weather/exceptions'
 
 class Weatheruby
   include Weather::Actions
+  include Weather::Planner
 
   # Creates a new instance of Weatheruby.
   # @param api_key [String] Your personal API key obtained on sign up for

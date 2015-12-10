@@ -8,6 +8,12 @@ require 'rainbow'
 require 'string-utility'
 require_relative '../lib/weatheruby'
 
+# Planner not supported here because it will eventually get its own CLI. That
+# would be way too many API calls for a single app, when most of the info
+# provided by the Planner would not even be useful.
+# TODO Write the Planner CLI: weatheruby_planner or something.
+
+
 @args = {
   help: false,
   verbose: false,
