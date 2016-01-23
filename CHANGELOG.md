@@ -1,5 +1,8 @@
 # Changelog
 ## Version 0
+### Version 0.5.1
+* Update to HTTPClient 2.7 and Ruby 2.3
+
 ### Version 0.5.0
 * Add support for all Weather Underground Planner APIs.
 
