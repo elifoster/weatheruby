@@ -1,5 +1,8 @@
 # Changelog
 ## Version 0
+### Version 0.5.2
+* License as MIT
+
 ### Version 0.5.1
 * Update to HTTPClient 2.7 and Ruby 2.3
 
