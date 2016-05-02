@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.authors = ['Eli Foster']
   s.name = 'weatheruby'
   s.summary = 'A Ruby gem for accessing the Weather Underground API.'
-  s.version = '0.5.2'
+  s.version = '0.5.3'
   s.license = 'MIT'
   s.description = 'Accessing the Weather Underground API through HTTPClient.'
   s.email = 'elifosterwy@gmail.com'
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
     'lib/weather/planner.rb'
   ]
   s.executables = 'weatheruby'
-  s.add_runtime_dependency('httpclient', '>= 2.7.1')
-  s.add_runtime_dependency('rainbow')
-  s.add_runtime_dependency('string-utility')
+  s.add_runtime_dependency('httpclient', '~> 2.8')
+  s.add_runtime_dependency('rainbow', '~> 2.1')
+  s.add_runtime_dependency('string-utility', '~> 2.7')
 end

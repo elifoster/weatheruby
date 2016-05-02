@@ -1,5 +1,9 @@
 # Changelog
 ## Version 0
+### Version 0.5.3
+* Update to HTTPClient 2.8
+* Use pessimistic version requirements, and actually add version requirements for Rainbow and StringUtility.
+
 ### Version 0.5.2
 * License as MIT
 
