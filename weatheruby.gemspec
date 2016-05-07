@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.authors = ['Eli Foster']
   s.name = 'weatheruby'
   s.summary = 'A Ruby gem for accessing the Weather Underground API.'
-  s.version = '0.5.3'
+  s.version = '0.6.0'
   s.license = 'MIT'
   s.description = 'Accessing the Weather Underground API through HTTPClient.'
   s.email = 'elifosterwy@gmail.com'
@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   }
   s.files = [
     'CHANGELOG.md',
+    'LICENSE.md',
     'lib/weatheruby.rb',
     'lib/weather/actions.rb',
-    'lib/weather/exceptions.rb',
     'lib/weather/planner.rb'
   ]
   s.executables = 'weatheruby'

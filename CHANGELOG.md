@@ -1,5 +1,11 @@
 # Changelog
 ## Version 0
+### Version 0.6.0
+* Error handling is much more generic now, with a single WeatherError which gets its message from the Weather 
+Underground API. With this is also the removal of the `verbose` option. Lastly, no method will return an error 
+silently, but actually `fail` with the WeatherError.
+* `language_key` is now an attribute accessor.
+
 ### Version 0.5.3
 * Update to HTTPClient 2.8
 * Use pessimistic version requirements, and actually add version requirements for Rainbow and StringUtility.

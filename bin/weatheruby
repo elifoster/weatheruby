@@ -16,7 +16,6 @@ require_relative '../lib/weatheruby'
 
 @args = {
   help: false,
-  verbose: false,
   token: nil,
   location: nil,
   language: 'EN'
@@ -24,7 +23,6 @@ require_relative '../lib/weatheruby'
 
 usage = 'Usage: weatheruby [t] token [-l] [-j] languagecode [-v] [-h]'
 help = "-h, --help       Show helpful information about Weatheruby usage\n" \
-       "-v, --verbose    Output verbose errors\n" \
        "-t, --token      The token to log in as\n" \
        "-l, --location   The location to get weather data for\n" \
        '-j, --language   The language code to use'
@@ -34,7 +32,6 @@ ARGV.each do |arg|
   when '-t', '--token' then @args[:token] = ARGV.at(ARGV.index(arg) + 1)
   when '-h', '--help' then @args[:help] = true
   when '-l', '--location' then @args[:location] = ARGV.at(ARGV.index(arg) + 1)
-  when '-v', '--verbose' then @args[:verbose] = true
   when '-j', '--language' then @args[:language] = ARGV.at(ARGV.index(arg) + 1)
   end
 end
@@ -55,11 +52,7 @@ if @args[:token].nil? || @args[:location].nil?
   exit
 end
 
-client = Weatheruby.new(@args[:token],
-                        @args[:language],
-                        true,
-                        true,
-                        @args[:verbose])
+client = Weatheruby.new(@args[:token], @args[:language], true, true)
 
 conditions = client.conditions(@args[:location])
 moon = client.moon_phase(@args[:location])

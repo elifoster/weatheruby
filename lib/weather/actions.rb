@@ -7,28 +7,20 @@ module Weather
     #   information for a different alert.
     def alerts(location)
       response = get('alerts', location)
-      if response['response']['error'].nil?
-        ret = []
-        count = 0
-        response['alerts'].each do |a|
-          ret[count] = {
-            type: a['type'],
-            description: a['description'],
-            date: a['date'],
-            expires: a['expires'],
-            message: a['message']
-          }
-          count += 1
-        end
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
+      ret = []
+      count = 0
+      response['alerts'].each do |a|
+        ret[count] = {
+          type: a['type'],
+          description: a['description'],
+          date: a['date'],
+          expires: a['expires'],
+          message: a['message']
+        }
+        count += 1
       end
+
+      ret
     end
 
     # Gets the current moon phase of the location.
@@ -36,22 +28,13 @@ module Weather
     # @return [Hash/String] A hash of two integers for the moon phase
     #   information. The age key in the hash contains the moon's age in days,
     #   and the illumination key contains the percentage of how illuminated it
-    #   is. Returns the error type if verbose_errors is off, else the desc.
+    #   is.
     def moon_phase(location)
       response = get('astronomy', location)
-      if response['response']['error'].nil?
-        ret = {}
-        ret[:age] = response['moon_phase']['ageOfMoon'].to_i
-        ret[:illumination] = response['moon_phase']['percentIlluminated'].to_i
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
-      end
+      {
+        age: response['moon_phase']['ageOfMoon'].to_i,
+        illumination: response['moon_phase']['percentIlluminated'].to_i
+      }
     end
 
     # Gets weather conditions for the location.
@@ -59,43 +42,35 @@ module Weather
     # @return [Hash] A hash containing strings of relevant weather information.
     def conditions(location)
       response = get('conditions', location)
-      if response['response']['error'].nil?
-        current_observation = response['current_observation']
-        display_location = current_observation['display_location']
+      current_observation = response['current_observation']
+      display_location = current_observation['display_location']
 
-        ret = {
-          full_name: display_location['full'],
-          city_name: display_location['city'],
-          state_abbreviation: display_location['state'],
-          state_name: display_location['state_name'],
-          country: display_location['country'],
-          zip_code: display_location['zip'].to_i,
-          updated: current_observation['observation_time'],
-          weather: current_observation['weather'],
-          formatted_temperature: current_observation['temperature_string'],
-          temperature_f: current_observation['temp_f'],
-          temperature_c: current_observation['temp_c'],
-          humidity: current_observation['relative_humidity'],
-          formatted_wind: current_observation['wind_string'],
-          wind_direction: current_observation['wind_dir'],
-          wind_degrees: current_observation['wind_degrees'],
-          wind_speed: current_observation['wind_mph'],
-          wind_gust_speed: current_observation['wind_gust_mph'].to_i,
-          formatted_feelslike: current_observation['feelslike_string'],
-          feelslike_f: current_observation['feelslike_f'].to_i,
-          feelslike_c: current_observation['feelslike_c'].to_i
-        }
+      ret = {
+        full_name: display_location['full'],
+        city_name: display_location['city'],
+        state_abbreviation: display_location['state'],
+        state_name: display_location['state_name'],
+        country: display_location['country'],
+        zip_code: display_location['zip'].to_i,
+        updated: current_observation['observation_time'],
+        weather: current_observation['weather'],
+        formatted_temperature: current_observation['temperature_string'],
+        temperature_f: current_observation['temp_f'],
+        temperature_c: current_observation['temp_c'],
+        humidity: current_observation['relative_humidity'],
+        formatted_wind: current_observation['wind_string'],
+        wind_direction: current_observation['wind_dir'],
+        wind_degrees: current_observation['wind_degrees'],
+        wind_speed: current_observation['wind_mph'],
+        wind_gust_speed: current_observation['wind_gust_mph'].to_i,
+        formatted_feelslike: current_observation['feelslike_string'],
+        feelslike_f: current_observation['feelslike_f'].to_i,
+        feelslike_c: current_observation['feelslike_c'].to_i
+      }
 
-        ret[:humidity] = ret[:humidity].sub('%', '').to_i
+      ret[:humidity] = ret[:humidity].sub('%', '').to_i
 
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
-      end
+      ret
     end
 
     # Gets the record low for the location.
@@ -103,24 +78,13 @@ module Weather
     # @return [Hash] A hash containing a few integers of data.
     def record_low(location)
       response = get('almanac', location)
-
-      if response['response']['error'].nil?
-        ret = {
-          average_low_f: response['almanac']['temp_low']['normal']['F'].to_i,
-          average_low_c: response['almanac']['temp_low']['normal']['C'].to_i,
-          record_year: response['almanac']['temp_low']['recordyear'].to_i,
-          record_low_f: response['almanac']['temp_low']['record']['F'].to_i,
-          record_low_c: response['almanac']['temp_low']['record']['C'].to_i
-        }
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
-      end
+      {
+        average_low_f: response['almanac']['temp_low']['normal']['F'].to_i,
+        average_low_c: response['almanac']['temp_low']['normal']['C'].to_i,
+        record_year: response['almanac']['temp_low']['recordyear'].to_i,
+        record_low_f: response['almanac']['temp_low']['record']['F'].to_i,
+        record_low_c: response['almanac']['temp_low']['record']['C'].to_i
+      }
     end
 
     # Gets the record high for the location.
@@ -128,24 +92,13 @@ module Weather
     # @return [Hash] A hash containing a few integers of data.
     def record_high(location)
       response = get('almanac', location)
-
-      if response['response']['error'].nil?
-        ret = {
-          average_high_f: response['almanac']['temp_high']['normal']['F'].to_i,
-          average_high_c: response['almanac']['temp_high']['normal']['C'].to_i,
-          record_year: response['almanac']['temp_high']['recordyear'].to_i,
-          record_high_f: response['almanac']['temp_high']['record']['F'].to_i,
-          record_high_c: response['almanac']['temp_high']['record']['C'].to_i
-        }
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
-      end
+      {
+        average_high_f: response['almanac']['temp_high']['normal']['F'].to_i,
+        average_high_c: response['almanac']['temp_high']['normal']['C'].to_i,
+        record_year: response['almanac']['temp_high']['recordyear'].to_i,
+        record_high_f: response['almanac']['temp_high']['record']['F'].to_i,
+        record_high_c: response['almanac']['temp_high']['record']['C'].to_i
+      }
     end
 
     # Gets data for currently-happening hurricanes around the world.
@@ -154,31 +107,23 @@ module Weather
     def hurricane_data
       response = get('currenthurricane', 'view')
 
-      if response['response']['error'].nil?
-        ret = {}
-        response['currenthurricane'].each do |h|
-          ret[h['stormInfo']['stormName_Nice']] = {
-            name: h['stormInfo']['stormName'],
-            number: h['stormInfo']['stormNumber'],
-            category: h['Current']['Category'],
-            time: h['Current']['Time']['pretty'],
-            wind_speed_mph: h['Current']['WindSpeed']['Mph'],
-            wind_speed_kts: h['Current']['WindSpeed']['Kts'],
-            wind_speed_kph: h['Current']['WindSpeed']['Kph'],
-            gust_speed_mph: h['Current']['WindGust']['Mph'],
-            gust_speed_kts: h['Current']['WindGust']['Kts'],
-            gust_speed_kph: h['Current']['WindGust']['Kph']
-          }
-        end
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
+      ret = {}
+      response['currenthurricane'].each do |h|
+        ret[h['stormInfo']['stormName_Nice']] = {
+          name: h['stormInfo']['stormName'],
+          number: h['stormInfo']['stormNumber'],
+          category: h['Current']['Category'],
+          time: h['Current']['Time']['pretty'],
+          wind_speed_mph: h['Current']['WindSpeed']['Mph'],
+          wind_speed_kts: h['Current']['WindSpeed']['Kts'],
+          wind_speed_kph: h['Current']['WindSpeed']['Kph'],
+          gust_speed_mph: h['Current']['WindGust']['Mph'],
+          gust_speed_kts: h['Current']['WindGust']['Kts'],
+          gust_speed_kph: h['Current']['WindGust']['Kph']
+        }
       end
+
+      ret
     end
 
     # Gets the basic forecast information for the location. Only gets data
@@ -228,76 +173,60 @@ module Weather
 
     # Parses the simple forecast information.
     def parse_simple_forecast(response)
-      if response['response']['error'].nil?
-        ret = {}
+      ret = {}
 
-        response['forecast']['txt_forecast']['forecastday'].each do |f|
-          ret[f['period']] = {
-            weekday_name: f['title'],
-            text: f['fcttext'],
-            text_metric: f['fcttext_metric']
-          }
-        end
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
+      response['forecast']['txt_forecast']['forecastday'].each do |f|
+        ret[f['period']] = {
+          weekday_name: f['title'],
+          text: f['fcttext'],
+          text_metric: f['fcttext_metric']
+        }
       end
+
+      ret
     end
 
     # Parses the complex forecast information.
     def parse_complex_forecast(response)
-      if response['response']['error'].nil?
-        ret = {}
+      ret = {}
 
-        response['forecast']['simpleforecast']['forecastday'].each do |f|
-          ret[f['period'] - 1] = {
-            high_f: f['high']['fahrenheit'].to_i,
-            high_c: f['high']['celsius'].to_i,
-            low_f: f['low']['fahrenheit'].to_i,
-            low_c: f['low']['celsius'].to_i,
-            conditions: f['conditions'].to_i,
-            snow: {
-              snow_total_in: f['snow_allday']['in'],
-              snow_total_cm: f['snow_allday']['cm'],
-              snow_night_in: f['snow_night']['in'],
-              snow_night_cm: f['snow_night']['cm'],
-              snow_day_in: f['snow_day']['in'],
-              snow_day_cm: f['snow_day']['cm']
-            },
-            quantative_precipitation: {
-              qpf_total_in: f['qpf_allday']['in'],
-              qpf_total_cm: f['qpf_allday']['cm'],
-              qpf_night_in: f['qpf_night']['in'],
-              qpf_night_cm: f['qpf_night']['cm'],
-              qpf_day_in: f['qpf_day']['in'],
-              qpf_day_cm: f['qpf_day']['cm']
-            },
-            wind: {
-              average_mph: f['avewind']['mph'],
-              average_kph: f['avewind']['kph'],
-              average_dir: f['avewind']['dir'],
-              average_temp: f['avewind']['degrees'],
-              max_mph: f['maxwind']['mph'],
-              max_kph: f['maxwind']['kph'],
-              max_dir: f['maxwind']['dir'],
-              max_temp: f['maxwind']['degrees']
-            }
+      response['forecast']['simpleforecast']['forecastday'].each do |f|
+        ret[f['period'] - 1] = {
+          high_f: f['high']['fahrenheit'].to_i,
+          high_c: f['high']['celsius'].to_i,
+          low_f: f['low']['fahrenheit'].to_i,
+          low_c: f['low']['celsius'].to_i,
+          conditions: f['conditions'].to_i,
+          snow: {
+            snow_total_in: f['snow_allday']['in'],
+            snow_total_cm: f['snow_allday']['cm'],
+            snow_night_in: f['snow_night']['in'],
+            snow_night_cm: f['snow_night']['cm'],
+            snow_day_in: f['snow_day']['in'],
+            snow_day_cm: f['snow_day']['cm']
+          },
+          quantative_precipitation: {
+            qpf_total_in: f['qpf_allday']['in'],
+            qpf_total_cm: f['qpf_allday']['cm'],
+            qpf_night_in: f['qpf_night']['in'],
+            qpf_night_cm: f['qpf_night']['cm'],
+            qpf_day_in: f['qpf_day']['in'],
+            qpf_day_cm: f['qpf_day']['cm']
+          },
+          wind: {
+            average_mph: f['avewind']['mph'],
+            average_kph: f['avewind']['kph'],
+            average_dir: f['avewind']['dir'],
+            average_temp: f['avewind']['degrees'],
+            max_mph: f['maxwind']['mph'],
+            max_kph: f['maxwind']['kph'],
+            max_dir: f['maxwind']['dir'],
+            max_temp: f['maxwind']['degrees']
           }
-        end
-
-        ret
-      else
-        if @verbose_errors
-          return response['response']['error']['description']
-        else
-          return response['response']['error']['type']
-        end
+        }
       end
+
+      ret
     end
   end
 end

@@ -183,8 +183,6 @@ module Weather
     #   metric and imperial systems.
     def get_temperatures(start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
-      return response['response']['error'] unless
-        response['response']['error'].nil?
       highs = response['trip']['temp_high']
       lows = response['trip']['temp_low']
 
@@ -242,7 +240,6 @@ module Weather
     # @return [Fixnum] The chance of the subject happening.
     def get_chance_of(subject, start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
-      return unless response['response']['error'].nil?
 
       response['trip']['chance_of'][subject]['percentage'].to_i
     end
