@@ -237,7 +237,7 @@ module Weather
     # @param end_date [DateTime] (see {#get_planner_response})
     # @param location [String] (see {#get_planner_response})
     # @since 0.5.0
-    # @return [Fixnum] The chance of the subject happening.
+    # @return [Integer] The chance of the subject happening.
     def get_chance_of(subject, start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
 
