@@ -1,5 +1,8 @@
 # Changelog
 ## Version 0
+### Version 0.6.1
+* Update to StringUtility 3.0
+
 ### Version 0.6.0
 * Error handling is much more generic now, with a single WeatherError which gets its message from the Weather 
 Underground API. With this is also the removal of the `verbose` option. Lastly, no method will return an error 

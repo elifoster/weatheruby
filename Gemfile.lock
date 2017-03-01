@@ -3,7 +3,7 @@ GEM
   specs:
     httpclient (2.8.0)
     rainbow (2.1.0)
-    string-utility (2.7.2)
+    string-utility (3.0.0)
 
 PLATFORMS
   ruby
@@ -11,7 +11,10 @@ PLATFORMS
 DEPENDENCIES
   httpclient (~> 2.8)
   rainbow (~> 2.1)
-  string-utility (~> 2.7)
+  string-utility (~> 3.0)
+
+RUBY VERSION
+   ruby 2.4.0p0
 
 BUNDLED WITH
-   1.11.2
+   1.14.4
