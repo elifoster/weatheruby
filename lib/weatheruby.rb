@@ -25,6 +25,8 @@ class Weatheruby
     @client = HTTPClient.new
   end
 
+  private
+
   # Performs a generic HTTP GET request. This method should generally not be used by a standard user, unless there is
   # not a method for a particular action/feature.
   # @param feature [String] The "feature" parameter defined by Wunderground.
