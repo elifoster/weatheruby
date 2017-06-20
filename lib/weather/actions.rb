@@ -37,6 +37,25 @@ module Weather
       }
     end
 
+    # Gets sunrise and sunset information for the current day at the current location.
+    # @param location [String] The place to get the info for.
+    # @return [Hash<Symbol, Hash<Symbol, Integer>>] A hash containing two hashes at keys :rise and :set for sunrise
+    #   and sunset information respectively. They each contain an :hour key and a :minute key which point to the hour
+    #   and minute that the sun will rise or set.
+    def sun_info(location)
+      response = get('astronomy', location)
+      {
+        rise: {
+          hour: response['moon_phase']['sunrise']['hour'].to_i,
+          minute: response['moon_phase']['sunrise']['minute'].to_i
+        },
+        set: {
+          hour: response['moon_phase']['sunset']['hour'].to_i,
+          minute: response['moon_phase']['sunset']['minute'].to_i
+        }
+      }
+    end
+
     # Gets weather conditions for the location.
     # @param location [String] The place to get the weather report for.
     # @return [Hash] A hash containing strings of relevant weather information.
