@@ -29,9 +29,9 @@ module Weather
 
     # Gets the current moon phase of the location.
     # @param location [String] The place to get the phase for.
-    # @return [Hash/String] A hash of two integers for the moon phase
-    #   information. The age key in the hash contains the moon's age in days,
-    #   and the illumination key contains the percentage of how illuminated it
+    # @return [Hash<Symbol, Integer>] A hash of two integers for the moon phase
+    #   information. The :age key in the hash contains the moon's age in days,
+    #   and the :illumination key contains the percentage of how illuminated it
     #   is.
     def moon_phase(location)
       response = get('astronomy', location)
