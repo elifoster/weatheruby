@@ -62,7 +62,31 @@ module Weather
 
     # Gets weather conditions for the location.
     # @param location [String] The place to get the weather report for.
-    # @return [Hash] A hash containing strings of relevant weather information.
+    # @return [Hash<Symbol, Object>] A hash containing strings of relevant weather information. It contains the
+    #   following keys:
+    #   * :full_name [String] The full name of the location
+    #   * :city_name [String] The name of the city
+    #   * :state_abbreviation [String] The abbreviation for the state (or national equivalent)
+    #   * :state_name [String] The name of the state (or national equivalent)
+    #   * :country [String] The name of the country
+    #   * :zip_code [Integer] The zip code for this location
+    #   * :updated [String] A string describing the date for when this data was last updated.
+    #   * :weather [String] A brief description of the current weather conditions in this location (e.g., Partly Cloudy)
+    #   * :formatted_temperature [String] The formatted temperature as provided by the API. It does not contain °
+    #   symbols. Its format is "XX F (YY C)"
+    #   * :temperature_f [Float] The current temperature in fahrenheit
+    #   * :temperature_c [Float] The current temperature in celsius
+    #   * :humidity [Integer] The humidity percentage
+    #   * :formatted_wind [String] A brief description of the current wind conditions (e.g., Calm)
+    #   * :wind_direction [String] The direction (East, West, etc.) that the wind is blowing
+    #   * :wind_degrees [Integer] The angle of the wind
+    #   * :wind_speed [Float] The speed of the wind in miles per hour
+    #   * :wind_gust_speed [Integer] The speed of the gusts of wind in miles per hour
+    #   * :formatted_feelslike [String] The formatted string for the "feels like" temperature data as provided by the
+    #   API. See :formatted_temperature for the format.
+    #   * :feelslike_f [Integer] The temperature that it feels like (not always the same as the temperature it is) in
+    #   fahrenheit
+    #   * :feelslike_c [Integer] Like feelslike_f but in celsius
     def conditions(location)
       response = get('conditions', location)
       current_observation = response['current_observation']
