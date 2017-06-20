@@ -211,12 +211,16 @@ module Weather
       ret = {}
 
       response['forecast']['simpleforecast']['forecastday'].each do |f|
+        date = f['date']
         ret[f['period'] - 1] = {
+          date: DateTime.new(date['year'], date['month'], date['day'], date['hour'], date['min'].to_i, date['sec'], date['tz_short']),
+          weekday_name: date['weekday'],
           high_f: f['high']['fahrenheit'].to_i,
           high_c: f['high']['celsius'].to_i,
           low_f: f['low']['fahrenheit'].to_i,
           low_c: f['low']['celsius'].to_i,
           conditions: f['conditions'].to_i,
+          image_url: f['icon_url'],
           snow: {
             snow_total_in: f['snow_allday']['in'],
             snow_total_cm: f['snow_allday']['cm'],
