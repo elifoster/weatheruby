@@ -31,17 +31,11 @@ class Weatheruby
   # not a method for a particular action/feature.
   # @param feature [String] The "feature" parameter defined by Wunderground.
   # @param location [String] The location of the query.
-  # @param autoparse [Boolean] Whether to automatically parse the response.
-  # @return [Hash/HTTPMessage] Parsed JSON if autoparse is true, or raw response if not.
-  # @raise WeatherError if anything goes wrong with the API, or it returns too many results for us to handle.
-  def get(feature, location, autoparse = true)
-    url = "http://api.wunderground.com/api/#{@api_key}/#{feature}/lang:" \
-          "#{@language_key}/pws:#{@use_pws}/bestfct:#{@use_bestfct}/q/" \
-          "#{location}.json"
-    url = URI.encode(url)
-    uri = URI.parse(url)
-    res = @client.get(uri)
-    json = JSON.parse(res.body)
+  # @return [Hash] Parsed JSON response
+  # @raise [WeatherError] If anything goes wrong with the API, or it returns too many results for us to handle.
+  def get(feature, location)
+    url = "http://api.wunderground.com/api/#{@api_key}/#{feature}/lang:#{@language_key}/pws:#{@use_pws}/bestfct:#{@use_bestfct}/q/#{location}.json"
+    json = JSON.parse(@client.get(URI.parse(URI.encode(url))).body)
     if json['response'].key?('error')
       fail(WeatherError, json['response']['error']['type'] + ': ' + json['response']['error']['description'].capitalize)
     end
@@ -49,7 +43,6 @@ class Weatheruby
       fail(WeatherError, 'toomanyresults: Too many results were returned. Try narrowing your search.')
     end
 
-
-    autoparse ? json : res
+    json
   end
 end
