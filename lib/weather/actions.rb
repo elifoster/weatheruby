@@ -2,9 +2,13 @@ module Weather
   module Actions
     # Gets alert information for a location.
     # @param location [String] The place to get the alert data for.
-    # @return [Hash/String] Nil if there are no alerts, or a hash of hashes
-    #   containing relevant data if not. Each array in the hash contains
-    #   information for a different alert.
+    # @return [Array<Hash<Symbol, String>>] A list of alerts for the given location. The array will be empty if there
+    #   are no alerts. Each value in the array is a hash containing symbol keys:
+    #   * :type [String] The 3 character identifier for the alert type (see Wunderground API docs)
+    #   * :description [String] The full name of the alert type
+    #   * :date [String] The date that the alert begins to take effect.
+    #   * :expires [String] The date that the alert is no longer in effect.
+    #   * :message [String] The full message for the alert (this is usually dozens of paragraphs long)
     def alerts(location)
       response = get('alerts', location)
       ret = []
