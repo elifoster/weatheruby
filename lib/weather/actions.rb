@@ -198,7 +198,8 @@ module Weather
         ret[f['period']] = {
           weekday_name: f['title'],
           text: f['fcttext'],
-          text_metric: f['fcttext_metric']
+          text_metric: f['fcttext_metric'],
+          image_url: f['icon_url']
         }
       end
 
