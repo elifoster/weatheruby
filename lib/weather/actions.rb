@@ -122,7 +122,12 @@ module Weather
 
     # Gets the record low for the location.
     # @param location [String] The place to get the record low for.
-    # @return [Hash] A hash containing a few integers of data.
+    # @return [Hash<Symbol, Integer>] A hash containing a few integers of data:
+    #   * :average_low_f [Integer] The average low temperature in this location in fahrenheit
+    #   * :average_low_c [Integer] The average low temperature in this location in celsius
+    #   * :record_year [Integer] The year in which this location had its lowest temperatures
+    #   * :record_low_f [Integer] The lowest temperature this location has had in fahrenheit
+    #   * :record_low_c [Integer] The lowest temperature this location has had in celsius
     def record_low(location)
       response = get('almanac', location)
       {
@@ -136,7 +141,12 @@ module Weather
 
     # Gets the record high for the location.
     # @param location [String] The place to get the record high for.
-    # @return [Hash] A hash containing a few integers of data.
+    # @return [Hash<Symbol, Integer>] A hash containing a few integers of data:
+    #   * :average_high_f [Integer] The average high temperature in this location in fahrenheit
+    #   * :average_high_c [Integer] The average high temperature in this location in celsius
+    #   * :record_year [Integer] The year in which this location had its highest temperatures
+    #   * :record_high_f [Integer] The highest temperature this location has had in fahrenheit
+    #   * :record_high_c [Integer] The highest temperature this location has had in celsius
     def record_high(location)
       response = get('almanac', location)
       {
