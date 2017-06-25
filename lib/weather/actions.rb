@@ -158,9 +158,19 @@ module Weather
       }
     end
 
-    # Gets data for currently-happening hurricanes around the world.
-    # @return [Hash] A hash containing hashes of data. Each sub-hash is named
-    #   as the "nice" name for the hurricane (example: Hurricane Daniel).
+    # Gets data for currently-happening storms around the world.
+    # @return [Hash<String, Hash<Symbol, String/Integer>>] A hash containing hashes of data. Each sub-hash is named
+    #   as the name for the storm including the type (example: Hurricane Daniel). The sub-hash values are as follows:
+    #   * :name [String] The name of the hurricane (example: Daniel)
+    #   * :number [String] The ID of the storm, 8 characters with a 2 letter basin ID.
+    #   * :category [String] The type of storm according to the Saffir-Simpson scale
+    #   * :time [String] The time the storm is recorded to start or have started
+    #   * :wind_speed_mph [Integer] The speed of the wind in this storm in miles per hour
+    #   * :wind_speed_kts [Integer] The speed of the wind in this storm in knots
+    #   * :wind_speed_kph [Integer] The speed of the wind in this storm in kilometers per hour
+    #   * :gust_speed_mph [Integer] The speed of the gusts of wind in this storm in miles per hour
+    #   * :gust_speed_kts [Integer] The speed of the gusts of wind in this storm in knots
+    #   * :gust_speed_kph [Integer] The speed of the gusts of wind in this storm in kilometers per hour
     def hurricane_data
       begin
         response = get('currenthurricane', 'view')
