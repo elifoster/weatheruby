@@ -1,3 +1,5 @@
+require 'time'
+
 module Weather
   module Actions
     # Gets alert information for a location.
@@ -6,8 +8,8 @@ module Weather
     #   are no alerts. Each value in the array is a hash containing symbol keys:
     #   * :type [String] The 3 character identifier for the alert type (see Wunderground API docs)
     #   * :description [String] The full name of the alert type
-    #   * :date [String] The date that the alert begins to take effect.
-    #   * :expires [String] The date that the alert is no longer in effect.
+    #   * :date [Time] The date that the alert begins to take effect, using the local timezone to this location.
+    #   * :expires [Time] The date that the alert is no longer in effect, using the local timezone to this location.
     #   * :message [String] The full message for the alert (this is usually dozens of paragraphs long)
     def alerts(location)
       response = get('alerts', location)
@@ -17,8 +19,8 @@ module Weather
         ret[count] = {
           type: a['type'],
           description: a['description'],
-          date: a['date'],
-          expires: a['expires'],
+          date: Time.parse(a['date']),
+          expires: Time.parse(a['expires']),
           message: a['message']
         }
         count += 1
@@ -163,14 +165,14 @@ module Weather
     #   as the name for the storm including the type (example: Hurricane Daniel). The sub-hash values are as follows:
     #   * :name [String] The name of the hurricane (example: Daniel)
     #   * :number [String] The ID of the storm, 8 characters with a 2 letter basin ID.
-    #   * :category [String] The type of storm according to the Saffir-Simpson scale
-    #   * :time [String] The time the storm is recorded to start or have started
-    #   * :wind_speed_mph [Integer] The speed of the wind in this storm in miles per hour
-    #   * :wind_speed_kts [Integer] The speed of the wind in this storm in knots
-    #   * :wind_speed_kph [Integer] The speed of the wind in this storm in kilometers per hour
-    #   * :gust_speed_mph [Integer] The speed of the gusts of wind in this storm in miles per hour
-    #   * :gust_speed_kts [Integer] The speed of the gusts of wind in this storm in knots
-    #   * :gust_speed_kph [Integer] The speed of the gusts of wind in this storm in kilometers per hour
+    #   * :category [String] The type of storm according to the Saffir-Simpson scale.
+    #   * :time [Time] The time the storm is recorded to start or have started using the local timezone for this location.
+    #   * :wind_speed_mph [Integer] The speed of the wind in this storm in miles per hour.
+    #   * :wind_speed_kts [Integer] The speed of the wind in this storm in knots.
+    #   * :wind_speed_kph [Integer] The speed of the wind in this storm in kilometers per hour.
+    #   * :gust_speed_mph [Integer] The speed of the gusts of wind in this storm in miles per hour.
+    #   * :gust_speed_kts [Integer] The speed of the gusts of wind in this storm in knots.
+    #   * :gust_speed_kph [Integer] The speed of the gusts of wind in this storm in kilometers per hour.
     def hurricane_data
       begin
         response = get('currenthurricane', 'view')
@@ -187,7 +189,7 @@ module Weather
           name: h['stormInfo']['stormName'],
           number: h['stormInfo']['stormNumber'],
           category: h['Current']['Category'],
-          time: h['Current']['Time']['pretty'],
+          time: Time.parse(h['Current']['Time']['pretty']),
           wind_speed_mph: h['Current']['WindSpeed']['Mph'],
           wind_speed_kts: h['Current']['WindSpeed']['Kts'],
           wind_speed_kph: h['Current']['WindSpeed']['Kph'],
