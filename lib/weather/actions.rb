@@ -162,7 +162,14 @@ module Weather
     # @return [Hash] A hash containing hashes of data. Each sub-hash is named
     #   as the "nice" name for the hurricane (example: Hurricane Daniel).
     def hurricane_data
-      response = get('currenthurricane', 'view')
+      begin
+        response = get('currenthurricane', 'view')
+      rescue Weatheruby::WeatherError => e
+        # For some reason the API always errors with this when getting current hurricane data.
+        fail e unless e.message.start_with?('querynotfound')
+        response = e.full_response
+      end
+      p response
 
       ret = {}
       response['currenthurricane'].each do |h|

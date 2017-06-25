@@ -4,7 +4,20 @@ require_relative 'weather/actions'
 require_relative 'weather/planner'
 
 class Weatheruby
-  class WeatherError < StandardError; end
+  class WeatherError < StandardError
+    # @return [Hash] The full parsed HTTP response
+    attr_reader :full_response
+
+    def initialize(json, type, description)
+      @full_response = json
+      @type = type
+      @description = description
+    end
+
+    def message
+      "#{@type}: #{@description}"
+    end
+  end
 
   include Weather::Actions
   include Weather::Planner
@@ -37,10 +50,11 @@ class Weatheruby
     url = "http://api.wunderground.com/api/#{@api_key}/#{feature}/lang:#{@language_key}/pws:#{@use_pws}/bestfct:#{@use_bestfct}/q/#{location}.json"
     json = JSON.parse(@client.get(URI.parse(URI.encode(url))).body)
     if json['response'].key?('error')
-      fail(WeatherError, json['response']['error']['type'] + ': ' + json['response']['error']['description'].capitalize)
+      error = json['response']['error']
+      fail(WeatherError.new(json, error['type'], error['description'].capitalize))
     end
     if json['response'].key?('results')
-      fail(WeatherError, 'toomanyresults: Too many results were returned. Try narrowing your search.')
+      fail(WeatherError.new(json, 'toomanyresults', 'Too many results were returned. Try narrowing your search.'))
     end
 
     json
