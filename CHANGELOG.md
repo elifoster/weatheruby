@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 1
+
+### Version 1.0.0
+* New `#sun_info` method for sunset/sunrise times
+* Add `:image_url` to simple forecast return hash
+* Add `:date`, `:weekday_name`, and `:image_url` to complex forecast return data
+* Improve documentation across the library. The recommended place for docs is now 
+[GitHub Pages](http://elifoster.github.io/weatheruby/) instead of RubyDocs.info
+* `#get` is now private
+* Remove `autoparse` parameter from `#get`
+* Fix `#hurricane_data` by ignoring the `WeatherError` thrown by that API
+* Return `Time` and `DateTime` objects instead of `String`s for timestamp values across the library.
+
 ## Version 0
 
 ### Version 0.6.1
