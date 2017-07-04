@@ -1,5 +1,7 @@
 # Changelog
+
 ## Version 0
+
 ### Version 0.6.1
 * Update to StringUtility 3.0
 

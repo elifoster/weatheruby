@@ -3,6 +3,7 @@ require 'json'
 require_relative 'weather/actions'
 require_relative 'weather/planner'
 
+# @todo Return proper objects instead of ugly hashes throughout the library
 class Weatheruby
   class WeatherError < StandardError
     # @return [Hash] The full parsed HTTP response

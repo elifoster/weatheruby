@@ -1,122 +1,140 @@
 module Weather
   module Planner
     # Gets the chance of snow within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_snow(start_date, end_date, location)
       get_chance_of('chanceofsnowday', start_date, end_date, location)
     end
 
     # Gets the chance of hail within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_hail(start_date, end_date, location)
       get_chance_of('chanceofhailday', start_date, end_date, location)
     end
 
     # Gets the chance of temperatures above 0 C/32 F within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_not_freezing(start_date, end_date, location)
       get_chance_of('tempoverfreezing', start_date, end_date, location)
     end
 
     # Gets the chance of temperatures below 0 C/32 F within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_freezing(start_date, end_date, location)
       get_chance_of('tempbelowfreezing', start_date, end_date, location)
     end
 
     # Gets chance of sultry within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_sultry(start_date, end_date, location)
       get_chance_of('chanceofsultryday', start_date, end_date, location)
     end
 
     # Gets the chance of a tornado within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_tornado(start_date, end_date, location)
       get_chance_of('chanceoftornadoday', start_date, end_date, location)
     end
 
     # Gets the chance of snow on the ground within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_groundsnow(start_date, end_date, location)
       get_chance_of('chanceofsnowonground', start_date, end_date, location)
     end
 
     # Gets the chance of thunderstorms within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_thunderstorms(start_date, end_date, location)
       get_chance_of('chanceofthunderday', start_date, end_date, location)
     end
 
     # Gets the chance of temperatures above 32.2 C/90 F within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_heat(start_date, end_date, location)
       get_chance_of('tempoverninety', start_date, end_date, location)
     end
 
     # Gets the chance of rain within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_rain(start_date, end_date, location)
       get_chance_of('chanceofrainday', start_date, end_date, location)
     end
 
     # Gets the chance of precipitation within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_precipitation(start_date, end_date, location)
       get_chance_of('chanceofprecip', start_date, end_date, location)
     end
 
     # Gets the chance of humidity within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_humid(start_date, end_date, location)
       get_chance_of('chanceofhumidday', start_date, end_date, location)
     end
 
     # Gets the chance of fog within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_fog(start_date, end_date, location)
       get_chance_of('chanceoffogday', start_date, end_date, location)
     end
 
     # Gets the chance of cloudy conditions within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_cloudy(start_date, end_date, location)
       get_chance_of('chanceofcloudyday', start_date, end_date, location)
     end
 
     # Gets the chance of sunshine within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_sunny(start_date, end_date, location)
       get_chance_of('chanceofsunnycloudyday', start_date, end_date, location)
     end
 
     # Gets the chance of partially cloudy conditions within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_partlycloudy(start_date, end_date, location)
       get_chance_of('chanceofpartlycloudyday', start_date, end_date, location)
     end
 
     # Gets the chance of high winds within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_high_wind(start_date, end_date, location)
       get_chance_of('chanceofwindyday', start_date, end_date, location)
     end
 
     # Gets the chance of a temperature of 15.5 C/60 F within the date range.
-    # @see #get_planner_response
+    # @param (see #get_planner_response)
+    # @return (see #get_chance_of)
     def chance_of_warmth(start_date, end_date, location)
       get_chance_of('tempoversixty', start_date, end_date, location)
     end
 
     # Gets the dewpoint highs and lows for the date range.
-    # @see #get_planner_response
-    # @return [Hash] Highs and lows minimum, average, and maximum for both
+    # @param (see #get_planner_response)
+    # @return [Hash<Symbol, Hash<Symbol, Hash<Symbol, Integer>>>] Highs and lows minimum, average, and maximum for both
     #   metric and imperial systems.
     # @return [String] The error if possible.
+    # @todo Raise an error instead of returning a String.
     def get_dewpoints(start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
-      return response['response']['error'] unless
-      response['response']['error'].nil?
+      return response['response']['error'] unless response['response']['error'].nil?
       highs = response['trip']['dewpoint_high']
       lows = response['trip']['dewpoint_low']
 
@@ -150,9 +168,10 @@ module Weather
 
     # Gets the precipitation amounts (not chance) for the date range.
     # @see #get_planner_response
-    # @return [Hash] Minimum, maximum, and average precipitation quantities for
+    # @return [Hash<Symbol, Hash<Symbol, Integer>>] Minimum, maximum, and average precipitation quantities for
     #   the location in both inches and centimeters.
     # @return [String] The error if possible.
+    # @todo Raise an error instead of returning a String.
     def get_precipitation(start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
       return response['response']['error'] unless
@@ -179,7 +198,7 @@ module Weather
 
     # Gets the highs and lows for the date range.
     # @see #get_planner_response
-    # @return [Hash] Highs and lows minimum, average, and maximum for both
+    # @return [Hash<Symbol, Hash<Symbol, Hash<Symbol, Integer>>>] Highs and lows minimum, average, and maximum for both
     #   metric and imperial systems.
     def get_temperatures(start_date, end_date, location)
       response = get_planner_response(start_date, end_date, location)
@@ -217,25 +236,20 @@ module Weather
     private
 
     # Gets the full planner API response.
-    # @param start_date [DateTime] The date to start at. Only month and day
-    # actually matter.
-    # @param end_date [DateTime] The date to end at. Only month and day actually
-    # matter.
+    # @param start_date [DateTime] The date to start at. Only month and day actually matter.
+    # @param end_date [DateTime] The date to end at. Only month and day actually matter.
     # @param location [String] The location to get the planner data for.
     # @since 0.5.0
-    # @return [Hash] (see {Weatheruby#get #get})
+    # @return (see Weatheruby#get)
     def get_planner_response(start_date, end_date, location)
       start = start_date.strftime('%m%d')
       final = end_date.strftime('%m%d')
       get("planner_#{start}#{final}", location)
     end
 
-    # Gets the chance of any given string key in the chance_of hash returned by
-    # get_planner_response.
+    # Gets the chance of any given string key in the chance_of hash returned by {#get_planner_response}.
     # @param subject [String] The chance_of hash's key.
-    # @param start_date [DateTime] (see {#get_planner_response})
-    # @param end_date [DateTime] (see {#get_planner_response})
-    # @param location [String] (see {#get_planner_response})
+    # @param (see #get_planner_response)
     # @since 0.5.0
     # @return [Integer] The chance of the subject happening.
     def get_chance_of(subject, start_date, end_date, location)

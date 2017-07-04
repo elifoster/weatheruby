@@ -4,19 +4,21 @@
 A Ruby Gem for the Weather Underground API
 
 ## Installation
+
 ### RubyGems
 ```
-gem install weatheruby
+$ gem install weatheruby
 ```
 
 ### Bundler
 Add this line to application's Gemfile:
 
-``` ruby
+```ruby
 gem('weatheruby')
 ```
 
 And then execute:
+
 ```
 $ bundle
 ```

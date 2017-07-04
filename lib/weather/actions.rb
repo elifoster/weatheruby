@@ -6,11 +6,12 @@ module Weather
     # @param location [String] The place to get the alert data for.
     # @return [Array<Hash<Symbol, String>>] A list of alerts for the given location. The array will be empty if there
     #   are no alerts. Each value in the array is a hash containing symbol keys:
-    #   * :type [String] The 3 character identifier for the alert type (see Wunderground API docs)
-    #   * :description [String] The full name of the alert type
-    #   * :date [Time] The date that the alert begins to take effect, using the local timezone to this location.
-    #   * :expires [Time] The date that the alert is no longer in effect, using the local timezone to this location.
-    #   * :message [String] The full message for the alert (this is usually dozens of paragraphs long)
+    #
+    #   * `:type` (`String`) — The 3 character identifier for the alert type (see Wunderground API docs)
+    #   * `:description` (`String`) — The full name of the alert type
+    #   * `:date` (`Time`) — The date that the alert begins to take effect, using the local timezone to this location.
+    #   * `:expires` (`Time`) — The date that the alert is no longer in effect, using the local timezone to this location.
+    #   * `:message` (`String`) — The full message for the alert (this is usually dozens of paragraphs long)
     def alerts(location)
       response = get('alerts', location)
       ret = []
@@ -32,8 +33,8 @@ module Weather
     # Gets the current moon phase of the location.
     # @param location [String] The place to get the phase for.
     # @return [Hash<Symbol, Integer>] A hash of two integers for the moon phase
-    #   information. The :age key in the hash contains the moon's age in days,
-    #   and the :illumination key contains the percentage of how illuminated it
+    #   information. The `:age` key in the hash contains the moon's age in days,
+    #   and the `:illumination` key contains the percentage of how illuminated it
     #   is.
     def moon_phase(location)
       response = get('astronomy', location)
@@ -66,29 +67,31 @@ module Weather
     # @param location [String] The place to get the weather report for.
     # @return [Hash<Symbol, Object>] A hash containing strings of relevant weather information. It contains the
     #   following keys:
-    #   * :full_name [String] The full name of the location
-    #   * :city_name [String] The name of the city
-    #   * :state_abbreviation [String] The abbreviation for the state (or national equivalent)
-    #   * :state_name [String] The name of the state (or national equivalent)
-    #   * :country [String] The name of the country
-    #   * :zip_code [Integer] The zip code for this location
-    #   * :updated [String] A string describing the date for when this data was last updated.
-    #   * :weather [String] A brief description of the current weather conditions in this location (e.g., Partly Cloudy)
-    #   * :formatted_temperature [String] The formatted temperature as provided by the API. It does not contain °
+    #
+    #   * `:full_name` (`String`) — The full name of the location
+    #   * `:city_name` (`String`) — The name of the city
+    #   * `:state_abbreviation` (`String`) — The abbreviation for the state (or national equivalent)
+    #   * `:state_name` (`String`) — The name of the state (or national equivalent)
+    #   * `:country` (`String`) — The name of the country
+    #   * `:zip_code` (`Integer`) — The zip code for this location
+    #   * `:updated` (`String`) — A string describing the date for when this data was last updated.
+    #   * `:weather` (`String`) — A brief description of the current weather conditions in this location (e.g., Partly
+    #   Cloudy)
+    #   * `:formatted_temperature` (`String`) — The formatted temperature as provided by the API. It does not contain °
     #   symbols. Its format is "XX F (YY C)"
-    #   * :temperature_f [Float] The current temperature in fahrenheit
-    #   * :temperature_c [Float] The current temperature in celsius
-    #   * :humidity [Integer] The humidity percentage
-    #   * :formatted_wind [String] A brief description of the current wind conditions (e.g., Calm)
-    #   * :wind_direction [String] The direction (East, West, etc.) that the wind is blowing
-    #   * :wind_degrees [Integer] The angle of the wind
-    #   * :wind_speed [Float] The speed of the wind in miles per hour
-    #   * :wind_gust_speed [Integer] The speed of the gusts of wind in miles per hour
-    #   * :formatted_feelslike [String] The formatted string for the "feels like" temperature data as provided by the
-    #   API. See :formatted_temperature for the format.
-    #   * :feelslike_f [Integer] The temperature that it feels like (not always the same as the temperature it is) in
-    #   fahrenheit
-    #   * :feelslike_c [Integer] Like feelslike_f but in celsius
+    #   * `:temperature_f` (`Float`) — The current temperature in fahrenheit
+    #   * `:temperature_c` (`Float`) — The current temperature in celsius
+    #   * `:humidity` (`Integer`) — The humidity percentage
+    #   * `:formatted_wind` (`String`) — A brief description of the current wind conditions (e.g., Calm)
+    #   * `:wind_direction` (`String`) — The direction (East, West, etc.) that the wind is blowing
+    #   * `:wind_degrees` (`Integer`) — The angle of the wind
+    #   * `:wind_speed` (`Float`) — The speed of the wind in miles per hour
+    #   * `:wind_gust_speed` (`Integer`) — The speed of the gusts of wind in miles per hour
+    #   * `:formatted_feelslike` (`String`) — The formatted string for the "feels like" temperature data as provided
+    #   by the API. See :formatted_temperature for the format.
+    #   * `:feelslike_f` (`Integer`) — The temperature that it feels like (not always the same as the temperature it
+    #   is) in fahrenheit
+    #   * `:feelslike_c` (`Integer`) — Like feelslike_f but in celsius
     def conditions(location)
       response = get('conditions', location)
       current_observation = response['current_observation']
@@ -125,11 +128,12 @@ module Weather
     # Gets the record low for the location.
     # @param location [String] The place to get the record low for.
     # @return [Hash<Symbol, Integer>] A hash containing a few integers of data:
-    #   * :average_low_f [Integer] The average low temperature in this location in fahrenheit
-    #   * :average_low_c [Integer] The average low temperature in this location in celsius
-    #   * :record_year [Integer] The year in which this location had its lowest temperatures
-    #   * :record_low_f [Integer] The lowest temperature this location has had in fahrenheit
-    #   * :record_low_c [Integer] The lowest temperature this location has had in celsius
+    #
+    #   * `:average_low_f` (`Integer`) — The average low temperature in this location in fahrenheit
+    #   * `:average_low_c` (`Integer`) — The average low temperature in this location in celsius
+    #   * `:record_year` (`Integer`) — The year in which this location had its lowest temperatures
+    #   * `:record_low_f` (`Integer`) — The lowest temperature this location has had in fahrenheit
+    #   * `:record_low_c` (`Integer`) — The lowest temperature this location has had in celsius
     def record_low(location)
       response = get('almanac', location)
       {
@@ -144,11 +148,12 @@ module Weather
     # Gets the record high for the location.
     # @param location [String] The place to get the record high for.
     # @return [Hash<Symbol, Integer>] A hash containing a few integers of data:
-    #   * :average_high_f [Integer] The average high temperature in this location in fahrenheit
-    #   * :average_high_c [Integer] The average high temperature in this location in celsius
-    #   * :record_year [Integer] The year in which this location had its highest temperatures
-    #   * :record_high_f [Integer] The highest temperature this location has had in fahrenheit
-    #   * :record_high_c [Integer] The highest temperature this location has had in celsius
+    #
+    #   * `:average_high_f` (`Integer`) — The average high temperature in this location in fahrenheit
+    #   * `:average_high_c` (`Integer`) — The average high temperature in this location in celsius
+    #   * `:record_year` (`Integer`) — The year in which this location had its highest temperatures
+    #   * `:record_high_f` (`Integer`) — The highest temperature this location has had in fahrenheit
+    #   * `:record_high_c` (`Integer`) — The highest temperature this location has had in celsius
     def record_high(location)
       response = get('almanac', location)
       {
@@ -163,16 +168,18 @@ module Weather
     # Gets data for currently-happening storms around the world.
     # @return [Hash<String, Hash<Symbol, String/Integer>>] A hash containing hashes of data. Each sub-hash is named
     #   as the name for the storm including the type (example: Hurricane Daniel). The sub-hash values are as follows:
-    #   * :name [String] The name of the hurricane (example: Daniel)
-    #   * :number [String] The ID of the storm, 8 characters with a 2 letter basin ID.
-    #   * :category [String] The type of storm according to the Saffir-Simpson scale.
-    #   * :time [Time] The time the storm is recorded to start or have started using the local timezone for this location.
-    #   * :wind_speed_mph [Integer] The speed of the wind in this storm in miles per hour.
-    #   * :wind_speed_kts [Integer] The speed of the wind in this storm in knots.
-    #   * :wind_speed_kph [Integer] The speed of the wind in this storm in kilometers per hour.
-    #   * :gust_speed_mph [Integer] The speed of the gusts of wind in this storm in miles per hour.
-    #   * :gust_speed_kts [Integer] The speed of the gusts of wind in this storm in knots.
-    #   * :gust_speed_kph [Integer] The speed of the gusts of wind in this storm in kilometers per hour.
+    #
+    #   * `:name` (`String`) — The name of the hurricane (example: Daniel)
+    #   * `:number` (`String`) — The ID of the storm, 8 characters with a 2 letter basin ID.
+    #   * `:category` (`String`) — The type of storm according to the Saffir-Simpson scale.
+    #   * `:time` (`Time`) — The time the storm is recorded to start or have started using the local timezone for this
+    #   location.
+    #   * `:wind_speed_mph` (`Integer`) — The speed of the wind in this storm in miles per hour.
+    #   * `:wind_speed_kts` (`Integer`) — The speed of the wind in this storm in knots.
+    #   * `:wind_speed_kph` (`Integer`) — The speed of the wind in this storm in kilometers per hour.
+    #   * `:gust_speed_mph` (`Integer`) — The speed of the gusts of wind in this storm in miles per hour.
+    #   * `:gust_speed_kts` (`Integer`) — The speed of the gusts of wind in this storm in knots.
+    #   * `:gust_speed_kph` (`Integer`) — The speed of the gusts of wind in this storm in kilometers per hour.
     def hurricane_data
       begin
         response = get('currenthurricane', 'view')
@@ -215,30 +222,29 @@ module Weather
       parse_simple_forecast(response)
     end
 
-    # Gets more complicated forecast information for the location. Only gets
-    #   the forecast for the next three days.
+    # Gets more complicated forecast information for the location. Only gets the forecast for the next three days.
     # @param location [String] The place to get the forecast for.
-    # @return [Hash] A hash containing hashes of information. Sub-hashes are
-    #   named as their "period", or the day in relation to the current day.
-    #   For example: 0 is today, 1 is tomorrow, etc. It does not organize itself
-    #   by weekday. Unlike simple_forecast, you do not get very many strings in
-    #   this method.
+    # @return [Hash] A hash containing hashes of information. Sub-hashes are named as their "period", or the day in
+    #   relation to the current day. For example: 0 is today, 1 is tomorrow, etc. It does not organize itself by
+    #   weekday. Unlike simple_forecast, you do not get very many strings in this method.
     def complex_forecast(location)
       response = get('forecast', location)
 
       parse_complex_forecast(response)
     end
 
-    # Exactly the same as #simple_forecast, except that it gets the data for
-    #   10 days.
+    # Exactly the same as {#simple_forecast}, except that it gets the data for 10 days.
+    # @param (see #simple_forecast)
+    # @return (see #simple_forecast)
     def simple_forecast_10day(location)
       response = get('forecast10day', location)
 
       parse_simple_forecast(response)
     end
 
-    # Exactly the same as #complex_forecast, except that it gets the data for
-    #   10 days.
+    # Exactly the same as {#complex_forecast}, except that it gets the data for 10 days.
+    # @param (see #complex_forecast)
+    # @return (see #complex_forecast)
     def complex_forecast_10day(location)
       response = get('forecast10day', location)
 
