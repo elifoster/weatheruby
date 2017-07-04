@@ -24,4 +24,4 @@ $ bundle
 ```
 
 ## Documentation
-Please see the [RubyDocs](http://www.rubydoc.info/gems/weatheruby).
+Please see the [RubyDocs](http://elifoster.github.io/weatheruby/).
