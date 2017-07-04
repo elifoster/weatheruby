@@ -59,6 +59,21 @@
 
       <div id="content"><div id='filecontents'><h1 id="changelog">Changelog</h1>
 
+<h2 id="version-1">Version 1</h2>
+
+<h3 id="version-100">Version 1.0.0</h3>
+<ul>
+  <li>New <code>#sun_info</code> method for sunset/sunrise times</li>
+  <li>Add <code>:image_url</code> to simple forecast return hash</li>
+  <li>Add <code>:date</code>, <code>:weekday_name</code>, and <code>:image_url</code> to complex forecast return data</li>
+  <li>Improve documentation across the library. The recommended place for docs is now 
+<a href="http://elifoster.github.io/weatheruby/">GitHub Pages</a> instead of RubyDocs.info</li>
+  <li><code>#get</code> is now private</li>
+  <li>Remove <code>autoparse</code> parameter from <code>#get</code></li>
+  <li>Fix <code>#hurricane_data</code> by ignoring the <code>WeatherError</code> thrown by that API</li>
+  <li>Return <code>Time</code> and <code>DateTime</code> objects instead of <code>String</code>s for timestamp values across the library.</li>
+</ul>
+
 <h2 id="version-0">Version 0</h2>
 
 <h3 id="version-061">Version 0.6.1</h3>
@@ -137,7 +152,7 @@ silently, but actually <code>fail</code> with the WeatherError.</li>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul  3 21:00:36 2017 by
+  Generated on Mon Jul  3 21:21:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
