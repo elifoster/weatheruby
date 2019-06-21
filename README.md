@@ -3,6 +3,9 @@
 
 A Ruby Gem for the Weather Underground API
 
+## Deprecated! Read me!
+The Weather Underground API has been shut down, and as a result, this gem is no longer maintained.
+
 ## Installation
 
 ### RubyGems
